@@ -23,26 +23,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Sync site links from example (CI has no secrets.json)
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build site config and ensure blog exists
         run: |
-          python -c "
-          import json, pathlib
-          p = pathlib.Path('secrets.example.json')
-          s = json.loads(p.read_text())
-          a = s['affiliates']
-          f = s['email_capture']['formspree_endpoint']
-          ig = s['instagram_handle']
-          js = f'''// CI deploy uses secrets.example.json — update secrets.json locally and sync-site.ps1
-          window.SITE_LINKS = {{
-            guide: \"{a['free_guide_url']}\",
-            savings: \"{a['high_yield_savings']}\",
-            budget: \"{a['budget_app']}\",
-            card: \"{a['credit_card']}\",
-            formEndpoint: \"{f}\",
-            instagram: \"{ig}\"
-          }};'''
-          pathlib.Path('site/links.js').write_text(js)
-          "
+          python generate_seo.py
+          python scripts/build-config.py
 
       - uses: actions/configure-pages@v5
 

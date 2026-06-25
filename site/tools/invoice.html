@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Invoice Generator — MoneyTools</title>
+  <meta name="description" content="Create and download a professional invoice PDF in your browser. Free, no signup." />
+  <link rel="stylesheet" href="../css/main.css" />
+  <script src="../js/config.js"></script>
+  <script src="../js/affiliate.js"></script>
+  <style>
+    @media print {
+      header, footer, .no-print, .affiliate-box { display: none !important; }
+      body { background: #fff; color: #000; }
+      #invoice-preview { border: none; box-shadow: none; }
+    }
+    #invoice-preview {
+      background: #fff;
+      color: #111;
+      border-radius: 8px;
+      padding: 32px;
+      font-size: 14px;
+    }
+    #invoice-preview h2 { margin: 0 0 4px; }
+    .inv-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    .inv-table th, .inv-table td { border-bottom: 1px solid #ddd; padding: 8px; text-align: left; }
+    .inv-total { text-align: right; font-size: 1.2rem; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a class="logo" href="../index.html">MoneyTools</a>
+    </div>
+  </header>
+  <main class="container tool-wrap">
+    <h1>Invoice Generator</h1>
+    <p class="lede">Fill in details, preview, then print or save as PDF.</p>
+
+    <div class="panel no-print">
+      <div class="row">
+        <div><label>Your name / business</label><input id="from-name" value="Your Name LLC" /></div>
+        <div><label>Your email</label><input id="from-email" value="you@email.com" /></div>
+      </div>
+      <div class="row">
+        <div><label>Client name</label><input id="to-name" value="Client Co" /></div>
+        <div><label>Invoice #</label><input id="inv-num" value="INV-001" /></div>
+      </div>
+      <div class="row">
+        <div><label>Date</label><input type="date" id="inv-date" /></div>
+        <div><label>Due date</label><input type="date" id="due-date" /></div>
+      </div>
+      <label>Line items (description | amount, one per line)</label>
+      <textarea id="items" rows="4">Website design | 1200
+Revisions | 300</textarea>
+      <button type="button" id="preview-btn">Update preview</button>
+      <button type="button" class="secondary" id="print-btn">Print / Save PDF</button>
+    </div>
+
+    <div class="panel" id="invoice-preview"></div>
+    <div class="affiliate-box no-print" id="aff-invoicing"></div>
+  </main>
+  <footer class="container no-print"><p>Free tool by MoneyTools.</p></footer>
+  <script>
+    const today = new Date().toISOString().slice(0, 10);
+    document.getElementById("inv-date").value = today;
+    const due = new Date(); due.setDate(due.getDate() + 14);
+    document.getElementById("due-date").value = due.toISOString().slice(0, 10);
+
+    function parseItems(text) {
+      return text.trim().split("\n").filter(Boolean).map(line => {
+        const [desc, amt] = line.split("|").map(s => s.trim());
+        return { desc: desc || "Item", amt: parseFloat(amt) || 0 };
+      });
+    }
+
+    function render() {
+      const items = parseItems(document.getElementById("items").value);
+      const total = items.reduce((s, i) => s + i.amt, 0);
+      const rows = items.map(i =>
+        `<tr><td>${i.desc}</td><td>$${i.amt.toFixed(2)}</td></tr>`
+      ).join("");
+      document.getElementById("invoice-preview").innerHTML = `
+        <h2>INVOICE</h2>
+        <p><strong>${document.getElementById("from-name").value}</strong><br>${document.getElementById("from-email").value}</p>
+        <p><strong>Bill to:</strong> ${document.getElementById("to-name").value}</p>
+        <p>Invoice #${document.getElementById("inv-num").value} &middot; Date: ${document.getElementById("inv-date").value} &middot; Due: ${document.getElementById("due-date").value}</p>
+        <table class="inv-table"><thead><tr><th>Description</th><th>Amount</th></tr></thead><tbody>${rows}</tbody></table>
+        <p class="inv-total">Total: $${total.toFixed(2)}</p>
+        <p style="color:#666;font-size:12px">Thank you for your business.</p>
+      `;
+    }
+    document.getElementById("preview-btn").addEventListener("click", render);
+    document.getElementById("print-btn").addEventListener("click", () => { render(); window.print(); });
+    render();
+    renderAffiliateBox("aff-invoicing", "invoicing",
+      "Send invoices that get paid faster",
+      "Recurring clients? Automate reminders and payment tracking.",
+      "Compare invoicing tools");
+  </script>
+</body>
+</html>

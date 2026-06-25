@@ -3,49 +3,70 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Money Minute | Free Tools</title>
-  <meta name="description" content="Free money tools, side hustle guide, and picks that save or make money." />
-  <link rel="stylesheet" href="style.css" />
-  <script src="links.js"></script>
+  <title>MoneyTools — Free Calculators That Help You Earn and Save</title>
+  <meta name="description" content="Free freelance rate calculator, invoice generator, compound interest calculator, and subscription audit. No signup required." />
+  <link rel="stylesheet" href="css/main.css" />
+  <script src="js/config.js"></script>
+  <script src="js/affiliate.js"></script>
 </head>
 <body>
-  <main class="wrap">
-    <div class="avatar">$</div>
-    <h1>Money Minute</h1>
-    <p class="sub">Free tools and picks that actually save or make money.</p>
+  <header>
+    <div class="container">
+      <a class="logo" href="index.html">MoneyTools</a>
+      <nav>
+        <a href="blog/index.html">Guides</a>
+        <a href="tools/invoice.html">Invoice</a>
+      </nav>
+    </div>
+  </header>
 
-    <a class="link featured" id="guide-link" href="guide.html">
-      <strong>Free Side Hustle Starter Guide</strong>
-      <span>10 ideas you can start this week</span>
-    </a>
-
-    <a class="link" id="savings-link" href="#">
-      <strong>High-Yield Savings Account</strong>
-      <span>Compare rates (affiliate)</span>
-    </a>
-
-    <a class="link" id="budget-link" href="#">
-      <strong>Budget App I Recommend</strong>
-      <span>Track spending automatically</span>
-    </a>
-
-    <a class="link" id="card-link" href="#">
-      <strong>Cash Back Credit Card</strong>
-      <span>Only if you pay in full monthly</span>
-    </a>
-
-    <section class="email-box">
-      <h2>Weekly money tips</h2>
-      <p>One short tip per week. No spam.</p>
-      <form id="email-form">
-        <input type="email" name="email" placeholder="you@email.com" required />
-        <button type="submit">Join</button>
-      </form>
-      <p id="form-msg" class="fine"></p>
+  <main class="container">
+    <section class="hero">
+      <h1>Free money tools. No signup. No spam.</h1>
+      <p>Calculators and generators that help freelancers price work, cut waste, and grow savings. Updated automatically.</p>
     </section>
 
-    <p class="fine">Affiliate links may earn commission at no extra cost to you.</p>
+    <section class="grid">
+      <a class="card" href="tools/freelance-rate.html">
+        <h2>Freelance Rate Calculator</h2>
+        <p>Turn your income goal into an hourly rate that covers taxes, expenses, and profit.</p>
+      </a>
+      <a class="card" href="tools/invoice.html">
+        <h2>Invoice Generator</h2>
+        <p>Create a professional PDF invoice in your browser. Download or print instantly.</p>
+      </a>
+      <a class="card" href="tools/compound-interest.html">
+        <h2>Compound Interest Calculator</h2>
+        <p>See how monthly investing grows over 5, 10, or 30 years.</p>
+      </a>
+      <a class="card" href="tools/subscription-audit.html">
+        <h2>Subscription Waste Calculator</h2>
+        <p>Add your recurring charges and see yearly bleed. Cut what you forgot.</p>
+      </a>
+    </section>
+
+    <section class="panel">
+      <h2>Latest guides</h2>
+      <ul class="blog-list" id="latest-posts">
+        <li><a href="blog/how-to-price-freelance-work.html">How to price freelance work without undercharging</a></li>
+      </ul>
+    </section>
   </main>
-  <script src="app.js"></script>
+
+  <footer class="container">
+    <p>MoneyTools runs on GitHub Pages. Tools are free. Some links may earn a commission at no extra cost to you.</p>
+  </footer>
+  <script>
+    fetch("blog/manifest.json")
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (!data?.posts?.length) return;
+        const ul = document.getElementById("latest-posts");
+        ul.innerHTML = data.posts.slice(0, 5).map(p =>
+          `<li><a href="blog/${p.slug}.html">${p.title}</a></li>`
+        ).join("");
+      })
+      .catch(() => {});
+  </script>
 </body>
 </html>

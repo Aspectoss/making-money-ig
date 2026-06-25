@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subscription Waste Calculator — MoneyTools</title>
+  <meta name="description" content="Add your subscriptions and see how much you waste per year on recurring charges." />
+  <link rel="stylesheet" href="../css/main.css" />
+  <script src="../js/config.js"></script>
+  <script src="../js/affiliate.js"></script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a class="logo" href="../index.html">MoneyTools</a>
+    </div>
+  </header>
+  <main class="container tool-wrap">
+    <h1>Subscription Waste Calculator</h1>
+    <p class="lede">The average person forgets 2-3 subscriptions. Add yours and see the yearly damage.</p>
+
+    <div class="panel">
+      <label>Subscriptions (name | monthly cost, one per line)</label>
+      <textarea id="subs" rows="6">Netflix | 15.99
+Spotify | 10.99
+Gym (unused) | 40
+Cloud storage | 2.99
+Random app trial | 9.99</textarea>
+      <button type="button" id="calc">Calculate waste</button>
+      <div class="result" id="result" hidden>
+        <p>Yearly total:</p>
+        <strong id="yearly-out">$0</strong>
+        <p id="detail" style="color:var(--muted);font-size:0.9rem;margin:8px 0 0"></p>
+      </div>
+    </div>
+    <div class="affiliate-box" id="aff-budget"></div>
+  </main>
+  <footer class="container"><p>Free tool by MoneyTools.</p></footer>
+  <script>
+    function calc() {
+      const lines = document.getElementById("subs").value.trim().split("\n").filter(Boolean);
+      let monthly = 0;
+      const items = lines.map(line => {
+        const [name, cost] = line.split("|").map(s => s.trim());
+        const m = parseFloat(cost) || 0;
+        monthly += m;
+        return { name: name || "Sub", m };
+      });
+      const yearly = monthly * 12;
+      document.getElementById("yearly-out").textContent = "$" + yearly.toFixed(2) + "/year";
+      document.getElementById("detail").textContent =
+        `$${monthly.toFixed(2)}/month across ${items.length} subscriptions. Cutting 2 unused subs could save $${(monthly * 0.3 * 12).toFixed(0)}+/year.`;
+      document.getElementById("result").hidden = false;
+    }
+    document.getElementById("calc").addEventListener("click", calc);
+    calc();
+    renderAffiliateBox("aff-budget", "budgeting",
+      "Stop subscription creep automatically",
+      "Budget apps flag recurring charges you forgot about.",
+      "Try a budgeting app");
+  </script>
+</body>
+</html>

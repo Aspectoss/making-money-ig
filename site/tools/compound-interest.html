@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compound Interest Calculator — MoneyTools</title>
+  <meta name="description" content="See how monthly investing grows with compound interest over time." />
+  <link rel="stylesheet" href="../css/main.css" />
+  <script src="../js/config.js"></script>
+  <script src="../js/affiliate.js"></script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a class="logo" href="../index.html">MoneyTools</a>
+    </div>
+  </header>
+  <main class="container tool-wrap">
+    <h1>Compound Interest Calculator</h1>
+    <p class="lede">Small monthly deposits compound into serious wealth over decades.</p>
+
+    <div class="panel">
+      <div class="row">
+        <div><label>Starting balance ($)</label><input type="number" id="start" value="1000" /></div>
+        <div><label>Monthly contribution ($)</label><input type="number" id="monthly" value="200" /></div>
+      </div>
+      <div class="row">
+        <div><label>Annual return (%)</label><input type="number" id="rate" value="7" step="0.1" /></div>
+        <div><label>Years</label><input type="number" id="years" value="20" min="1" max="50" /></div>
+      </div>
+      <button type="button" id="calc">Calculate</button>
+      <div class="result" id="result" hidden>
+        <p>Future value:</p>
+        <strong id="fv-out">$0</strong>
+        <p id="detail" style="color:var(--muted);font-size:0.9rem;margin:8px 0 0"></p>
+      </div>
+    </div>
+    <div class="affiliate-box" id="aff-savings"></div>
+  </main>
+  <footer class="container"><p>Free tool by MoneyTools. Not financial advice.</p></footer>
+  <script>
+    function calc() {
+      const P = +document.getElementById("start").value;
+      const PMT = +document.getElementById("monthly").value;
+      const r = +document.getElementById("rate").value / 100 / 12;
+      const n = +document.getElementById("years").value * 12;
+      let fv = P * Math.pow(1 + r, n);
+      if (r > 0) {
+        fv += PMT * ((Math.pow(1 + r, n) - 1) / r);
+      } else {
+        fv += PMT * n;
+      }
+      const contributed = P + PMT * n;
+      document.getElementById("fv-out").textContent = "$" + fv.toLocaleString(undefined, {maximumFractionDigits: 0});
+      document.getElementById("detail").textContent =
+        `You contribute $${contributed.toLocaleString()}. Growth from compounding: $${(fv - contributed).toLocaleString(undefined, {maximumFractionDigits: 0})}.`;
+      document.getElementById("result").hidden = false;
+    }
+    document.getElementById("calc").addEventListener("click", calc);
+    calc();
+    renderAffiliateBox("aff-savings", "savings",
+      "Park cash in a high-yield savings account",
+      "While you invest long-term, your emergency fund should earn more than 0%.",
+      "Compare savings rates");
+  </script>
+</body>
+</html>

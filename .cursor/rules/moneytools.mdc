@@ -1,0 +1,16 @@
+---
+description: MoneyTools automated affiliate site — agent autopilot
+alwaysApply: true
+---
+
+# MoneyTools Operator
+
+Automated income site. Read `AGENTS.md`.
+
+When user wants money or automation:
+1. Improve the tools site or SEO content — do NOT suggest Instagram.
+2. Run `python generate_seo.py` and `python scripts/build-config.py`.
+3. Push to GitHub `main` to deploy.
+4. Only user setup ever needed: paste affiliate tag in `secrets.json`.
+
+Live: https://aspectoss.github.io/making-money-ig/

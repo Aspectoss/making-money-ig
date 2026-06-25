@@ -1,62 +1,40 @@
-# Money Machine Agent Playbook
+# MoneyTools Agent Playbook
 
-You are operating the **Money Minute** Instagram income system. Your job is to keep the money pipeline running with minimal user input.
+You operate an **automated affiliate tools site**. No Instagram. No manual posting. Income comes from search traffic and affiliate clicks.
 
-## Project goal
+## Live URL
 
-Build audience on Instagram (faceless money-tips reels), monetize via link-in-bio (affiliates + email list + digital products).
+https://aspectoss.github.io/making-money-ig/
 
-## What runs automatically (do not redo unless broken)
+## Default workflow
 
-- **GitHub Action `weekly-content.yml`**: Every Sunday, generates a new `content/week-*` folder and commits it.
-- **GitHub Action `deploy-pages.yml`**: On every push to `main`, deploys `site/` to GitHub Pages.
-- **`scripts/daily.ps1`**: Shows today's post from the latest content week.
+1. Run `python generate_seo.py` and `python scripts/build-config.py` if site content is stale.
+2. Improve tools, add new calculators, or write more SEO articles when asked.
+3. Push to `main` — GitHub Actions deploys automatically.
+4. Never ask the user to post on social media.
 
-## Your default workflow when the user opens this project
+## Monetization
 
-1. Run `powershell -File scripts/daily.ps1` and report today's reel (hook, caption path, post time).
-2. Check `secrets.json` exists. If affiliate links are still placeholders, remind user to fill them once, then run `scripts/sync-site.ps1`.
-3. If no content for today, run `python generate.py`.
-4. If user asks you to "make money" or "keep going", prioritize:
-   - Getting today's reel posted (give them copy-paste caption + on-screen text)
-   - Updating affiliate links when user provides them
-   - Building Gumroad product copy if they want to sell templates
-   - Local business outreach scripts ($150/reel side hustle)
+- Affiliate links in `secrets.json` → `site/js/config.js`
+- User only needs to paste affiliate tag once (Amazon Associates, etc.)
+- Tools: freelance rate, invoice generator, compound interest, subscription audit
+
+## Adding a new tool
+
+1. Create `site/tools/your-tool.html` using existing tools as template.
+2. Add card to `site/index.html`.
+3. Add SEO article to `ARTICLES` in `generate_seo.py`.
+4. Run generators, commit, push.
 
 ## What you must NOT do
 
-- Do not automate Instagram login, posting, or DMs (ToS violation, account ban risk).
-- Do not commit `secrets.json` (contains affiliate URLs).
-- Do not promise guaranteed income.
+- Revert to Instagram content strategy unless user asks.
+- Commit `secrets.json`.
+- Promise specific income amounts.
 
-## File map
+## Maintenance tasks (do proactively)
 
-| Path | Purpose |
-|------|---------|
-| `generate.py` | Creates 7 days of reel content |
-| `content/week-*/day-*/` | Script, caption, on-screen text per post |
-| `site/` | Link-in-bio page (auto-deployed) |
-| `secrets.json` | Affiliate + Formspree config (local only) |
-| `config.json` | IG bio, hashtags, content settings |
-
-## Monetization ladder
-
-1. Post daily reels (user films in CapCut, 15 min/day)
-2. Bio links to GitHub Pages site (`site/index.html`)
-3. Free guide at `site/guide.html` builds trust
-4. Affiliate links in `secrets.json` earn per signup
-5. Sell $9 Gumroad template when audience grows
-
-## When user says "set it up" or "make money for me"
-
-Execute in order:
-1. `python generate.py` if no recent content week
-2. `powershell -File scripts/sync-site.ps1`
-3. `powershell -File scripts/daily.ps1`
-4. Tell user exactly one action: post today's reel OR paste affiliate link they need to sign up for
-
-## GitHub Pages URL
-
-After first deploy: `https://aspectoss.github.io/making-money-ig/`
-
-Put this in Instagram bio once account is created.
+- Add more long-tail SEO articles to `generate_seo.py`
+- Improve tool UX and meta descriptions for SEO
+- Submit sitemap ideas (could add sitemap.xml later)
+- Monitor GitHub Actions for failed deploys

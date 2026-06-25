@@ -1,64 +1,49 @@
-# One-Time Setup (10 minutes)
+# One-Time Setup
 
-Do these once. After that, the agent and GitHub Actions handle content and site deploy.
+The site runs itself after this. No daily tasks from you.
 
-## Already done by the agent
+## Already automated
 
-- [x] Content generator (`generate.py`)
-- [x] This week's reels in `content/week-*`
-- [x] Link-in-bio site in `site/`
-- [x] Weekly auto-content (GitHub Action)
-- [x] Auto-deploy site on push (GitHub Pages)
-- [x] Cursor agent rules + session hook
+- [x] 4 free money tools (calculators + invoice generator)
+- [x] 5 SEO guides for search traffic
+- [x] Weekly blog refresh (GitHub Action, Mondays)
+- [x] Auto-deploy on every push (GitHub Pages)
+- [x] Agent rules so Cursor maintains it
 
-## You do these 4 things once
+**Site:** https://aspectoss.github.io/making-money-ig/
 
-### 1. Create Instagram account (5 min)
+## You do this once (5 minutes)
 
-- Username: pick from `config.json` suggestions
-- Bio: copy from `config.json`
-- Switch to Business/Creator account
-- Bio link: `https://aspectoss.github.io/making-money-ig/` (after GitHub push)
+### Step 1: Amazon Associates (or skip for now)
 
-### 2. Copy secrets file (1 min)
+1. Go to https://affiliate-program.amazon.com and sign up (free)
+2. Get your associate tag (looks like `yourname-20`)
+
+### Step 2: Paste into secrets
 
 ```powershell
 cd "c:\Users\kyled\OneDrive\Documents\making money ig"
-Copy-Item secrets.example.json secrets.json
-powershell -File scripts\sync-site.ps1
+Copy-Item secrets.example.json secrets.json -ErrorAction SilentlyContinue
 ```
 
-Edit `secrets.json` when you have real affiliate links.
+Edit `secrets.json`:
+- `amazon_associate_tag`: your tag
+- Replace affiliate URLs when you get approved for programs (FreshBooks, YNAB, etc.)
 
-### 3. Sign up for affiliates (optional, do when ready)
-
-| Program | Sign up | What to paste in secrets.json |
-|---------|---------|--------------------------------|
-| Amazon Associates | affiliate-program.amazon.com | product links later |
-| Formspree (email) | formspree.io (free) | `email_capture.formspree_endpoint` |
-| Gumroad (sell PDF) | gumroad.com | `gumroad.template_product_url` |
-
-### 4. Post your first reel (15 min)
-
+Then:
 ```powershell
-powershell -File scripts\daily.ps1
+python scripts/build-config.py
+git add site/js/config.js
+git commit -m "Add affiliate config"
+git push
 ```
 
-Open the folder it prints. CapCut + stock clips + on-screen text. Paste caption. Post.
+### Step 3: Nothing else
 
-## What happens automatically after GitHub push
+The site earns when people find your tools on Google and click affiliate links. The agent adds more SEO content every week automatically.
 
-| When | What |
-|------|------|
-| Every push to `main` | Site deploys to GitHub Pages |
-| Every Sunday 2pm UTC | New week of reel content generated and committed |
-| Every Cursor session | Agent sees today's post task |
+## Optional upgrades (tell the agent)
 
-## Daily routine (you, 15 min/day)
-
-1. Open this project in Cursor (or say "what's today's post")
-2. Agent runs `daily.ps1` and gives you caption
-3. Make reel in CapCut, post to Instagram
-4. Reply to comments
-
-That is the minimum viable money machine. Income follows consistency, not magic.
+- Add Google AdSense after traffic grows
+- Add Stripe payment link for premium invoice templates
+- Add more calculator tools for more search keywords

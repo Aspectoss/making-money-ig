@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://aspectoss.github.io/making-money-ig/sitemap.xml
