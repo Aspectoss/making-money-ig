@@ -1,0 +1,76 @@
+{
+  "generated_at": "2026-06-25T17:00:31",
+  "niche": "personal finance and side hustles",
+  "posts": [
+    {
+      "id": "day-01",
+      "schedule": {
+        "date": "2026-06-25",
+        "weekday": "Thursday",
+        "post_time": "07:30"
+      },
+      "hook": "I made my first $100 online in 48 hours doing this.",
+      "folder": "content\\week-2026-06-25\\day-01"
+    },
+    {
+      "id": "day-02",
+      "schedule": {
+        "date": "2026-06-26",
+        "weekday": "Friday",
+        "post_time": "12:00"
+      },
+      "hook": "How to turn one skill into $500 this month.",
+      "folder": "content\\week-2026-06-25\\day-02"
+    },
+    {
+      "id": "day-03",
+      "schedule": {
+        "date": "2026-06-27",
+        "weekday": "Saturday",
+        "post_time": "18:30"
+      },
+      "hook": "Rich people do not budget like you think.",
+      "folder": "content\\week-2026-06-25\\day-03"
+    },
+    {
+      "id": "day-04",
+      "schedule": {
+        "date": "2026-06-28",
+        "weekday": "Sunday",
+        "post_time": "07:30"
+      },
+      "hook": "This side hustle needs zero followers to start.",
+      "folder": "content\\week-2026-06-25\\day-04"
+    },
+    {
+      "id": "day-05",
+      "schedule": {
+        "date": "2026-06-29",
+        "weekday": "Monday",
+        "post_time": "12:00"
+      },
+      "hook": "The 24-hour rule that killed my impulse spending.",
+      "folder": "content\\week-2026-06-25\\day-05"
+    },
+    {
+      "id": "day-06",
+      "schedule": {
+        "date": "2026-06-30",
+        "weekday": "Tuesday",
+        "post_time": "18:30"
+      },
+      "hook": "If you make under $60k, do this with your tax refund.",
+      "folder": "content\\week-2026-06-25\\day-06"
+    },
+    {
+      "id": "day-07",
+      "schedule": {
+        "date": "2026-07-01",
+        "weekday": "Wednesday",
+        "post_time": "07:30"
+      },
+      "hook": "The free tool that replaced my financial advisor.",
+      "folder": "content\\week-2026-06-25\\day-07"
+    }
+  ]
+}

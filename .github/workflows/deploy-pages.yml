@@ -1,0 +1,54 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync site links from example (CI has no secrets.json)
+        run: |
+          python -c "
+          import json, pathlib
+          p = pathlib.Path('secrets.example.json')
+          s = json.loads(p.read_text())
+          a = s['affiliates']
+          f = s['email_capture']['formspree_endpoint']
+          ig = s['instagram_handle']
+          js = f'''// CI deploy uses secrets.example.json — update secrets.json locally and sync-site.ps1
+          window.SITE_LINKS = {{
+            guide: \"{a['free_guide_url']}\",
+            savings: \"{a['high_yield_savings']}\",
+            budget: \"{a['budget_app']}\",
+            card: \"{a['credit_card']}\",
+            formEndpoint: \"{f}\",
+            instagram: \"{ig}\"
+          }};'''
+          pathlib.Path('site/links.js').write_text(js)
+          "
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

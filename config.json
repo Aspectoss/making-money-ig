@@ -1,0 +1,22 @@
+{
+  "account": {
+    "username_suggestions": ["moneyminute", "cashflowclips", "sidehustlelab"],
+    "bio": "Daily money tips that actually work\nFree side hustle guide below",
+    "niche": "personal finance and side hustles"
+  },
+  "affiliates": {
+    "free_guide_url": "https://YOUR-GUMROAD-OR-GOOGLE-DRIVE-LINK",
+    "high_yield_savings": "https://YOUR-AFFILIATE-LINK",
+    "budget_app": "https://YOUR-AFFILIATE-LINK",
+    "credit_card": "https://YOUR-AFFILIATE-LINK"
+  },
+  "content": {
+    "posts_per_week": 7,
+    "best_post_times": ["07:30", "12:00", "18:30"],
+    "hashtag_sets": [
+      ["#moneytips", "#personalfinance", "#financialliteracy", "#savemoney", "#wealthbuilding", "#moneymindset", "#financetok", "#reels"],
+      ["#sidehustle", "#makemoneyonline", "#extracash", "#hustle", "#entrepreneur", "#passiveincome", "#workfromhome", "#reels"],
+      ["#budgeting", "#debtfree", "#financialfreedom", "#investing", "#smartmoney", "#cashflow", "#moneyhacks", "#reels"]
+    ]
+  }
+}

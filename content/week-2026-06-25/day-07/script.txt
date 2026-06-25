@@ -1,0 +1,7 @@
+The free tool that replaced my financial advisor.
+
+1. A simple net worth tracker: assets minus debts, updated monthly.
+2. You cannot improve what you do not measure.
+3. Google Sheets template is enough. Fancy apps are optional.
+
+CTA: Link in bio for the free tracker template.
