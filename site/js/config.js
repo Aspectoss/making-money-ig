@@ -2,10 +2,10 @@
 window.MONEY_CONFIG = {
   amazonTag: "",
   affiliates: {
-    invoicing: "",
-    budgeting: "",
-    savings: "",
-    credit: ""
+    invoicing: "https://www.freshbooks.com",
+    budgeting: "https://www.youneedabudget.com",
+    savings: "https://www.marcus.com",
+    credit: "https://www.creditkarma.com"
   },
   donateUrl: "",
   premiumUrl: ""
